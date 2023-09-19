@@ -1,6 +1,6 @@
 module github.com/wirasatrian/go-restapi-gin
 
-go 1.21.1
+go 1.20
 
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
