@@ -22,7 +22,7 @@ func ConnectDataBase() *gorm.DB {
 		panic(err.Error())
 	}
 
-	db.AutoMigrate(&models.Movie{}, &models.AgeRatingCategory{})
+	db.AutoMigrate(&models.Movie{}, &models.AgeRatingCategory{}, &models.User{})
 
 	return db
 }

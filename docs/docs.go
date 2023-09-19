@@ -47,6 +47,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
                 "description": "Creating a new AgeRatingCategory.",
                 "produces": [
                     "application/json"
@@ -64,6 +69,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/controllers.ageRatingCategoryInput"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -105,6 +117,11 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
                 "description": "Delete a AgeRatingCategory by id.",
                 "produces": [
                     "application/json"
@@ -114,6 +131,13 @@ const docTemplate = `{
                 ],
                 "summary": "Delete one AgeRatingCategory.",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "AgeRatingCategory id",
@@ -135,6 +159,11 @@ const docTemplate = `{
                 }
             },
             "patch": {
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ],
                 "description": "Update AgeRatingCategory by id.",
                 "produces": [
                     "application/json"
@@ -159,6 +188,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/controllers.ageRatingCategoryInput"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization. How to input in swagger : 'Bearer \u003cinsert_your_token_here\u003e'",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -198,6 +234,38 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/models.Movie"
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "description": "Logging in to get jwt token to access admin or user api by roles.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login as as user.",
+                "parameters": [
+                    {
+                        "description": "the body to login a user",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.LoginInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
                         }
                     }
                 }
@@ -351,9 +419,75 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/register": {
+            "post": {
+                "description": "registering a user from public access.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a user.",
+                "parameters": [
+                    {
+                        "description": "the body to register a user",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.RegisterInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "controllers.LoginInput": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.RegisterInput": {
+            "type": "object",
+            "required": [
+                "email",
+                "password",
+                "username"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "controllers.ageRatingCategoryInput": {
             "type": "object",
             "properties": {
