@@ -44,5 +44,9 @@ func main() {
 
 	// router
 	r := routes.SetupRouter(db)
-	r.Run("localhost:8080")
+	if environment == "production" {
+		r.Run()
+	} else {
+		r.Run("localhost:8080")
+	}
 }
